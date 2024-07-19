@@ -13,7 +13,7 @@ app.use(cors({
         : process.env.LIVE_SERVER,
     credentials: true
 }))
-
+app.use("/api/auth", require("./routes/auth.router"))
 app.use("*", (req, res) => {
     res.status(404).json({ message: "Resource Not Found" })
 })
