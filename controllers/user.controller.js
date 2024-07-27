@@ -24,6 +24,8 @@ exports.verifyEmailOTP = asyncHandler(async (req, res) => {
     if (!result) {
         return res.status(401).json({ message: "You are not Logged In. Please Login Again" })
     }
+    console.log(result);
+    console.log(req.body);
     if (otp != result.emailcode) {
         return res.status(400).json({ message: "Invalid OTP" })
     }
