@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler")
 const User = require("../models/User")
 const sendEmail = require("../utils/email")
+const { sendSMS } = require("../utils/sms")
 
 exports.verifyUserEmail = asyncHandler(async (req, res) => {
     const result = await User.findById(req.loggedInUser)
@@ -31,6 +32,16 @@ exports.verifyEmailOTP = asyncHandler(async (req, res) => {
     }
     await User.findByIdAndUpdate(req.loggedInUser, { emailVerified: true })
     res.json({ message: "Email Verify  Success" })
+})
+exports.verifyUserMobile = asyncHandler(async (req, res) => {
+    const result = await User.findOne(req.loggedInUser)
+    const otp = Math.floor(1000 + Math.random() * 900000)
+    await User.findByIdAndUpdate(req.loggedInUser, { mobilecode: otp })
+    await sendSMS({
+        message: ` welcome to SKILLHUB. Your OTP is ${otp}`,
+        numbers: `${result.mobile}`
+    })
+    res.json({ message: "Verification Send  Success" })
 })
 exports.verifyMobileOTP = asyncHandler(async (req, res) => {
     const { otp } = req.body
