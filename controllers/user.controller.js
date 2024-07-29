@@ -34,7 +34,7 @@ exports.verifyEmailOTP = asyncHandler(async (req, res) => {
     res.json({ message: "Email Verify  Success" })
 })
 exports.verifyUserMobile = asyncHandler(async (req, res) => {
-    const result = await User.findOne(req.loggedInUser)
+    const result = await User.findById(req.loggedInUser)
     const otp = Math.floor(1000 + Math.random() * 900000)
     await User.findByIdAndUpdate(req.loggedInUser, { mobilecode: otp })
     await sendSMS({
