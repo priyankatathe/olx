@@ -2,6 +2,7 @@ const asyncHandler = require("express-async-handler")
 const User = require("../models/User")
 const sendEmail = require("../utils/email")
 const { sendSMS } = require("../utils/sms")
+const { checkEmpty } = require("../utils/checkEmpty")
 
 exports.verifyUserEmail = asyncHandler(async (req, res) => {
     const result = await User.findById(req.loggedInUser)
