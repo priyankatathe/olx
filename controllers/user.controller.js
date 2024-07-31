@@ -3,6 +3,7 @@ const User = require("../models/User")
 const sendEmail = require("../utils/email")
 const { sendSMS } = require("../utils/sms")
 const { checkEmpty } = require("../utils/checkEmpty")
+const Posts = require("../models/Posts")
 
 exports.verifyUserEmail = asyncHandler(async (req, res) => {
     const result = await User.findById(req.loggedInUser)
@@ -77,6 +78,6 @@ exports.addPost = asyncHandler(async (req, res) => {
         return res.status(400).json({ message: "All Fields Required", error })
     }
     // modify this code to support cloudnary
-    await Post.create({ title, category, desc, price, images, location, user: req.loggedInUser })
+    await Posts.create({ title, category, desc, price, images, location, user: req.loggedInUser })
     res.json({ message: "Post create success" })
 })
