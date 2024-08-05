@@ -94,6 +94,6 @@ exports.addPost = asyncHandler(async (req, res) => {
     }
 
     // modify this code to support cloudnary
-    // await Posts.create({ title, category, desc, price, images, location, user: req.loggedInUser })
+    await Posts.create({ title, category, desc, price, images, location, user: req.loggedInUser })
     res.json({ message: "Post create success" })
 })
