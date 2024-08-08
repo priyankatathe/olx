@@ -108,7 +108,8 @@ exports.addPost = asyncHandler(async (req, res) => {
         await Posts.create({
             title,
             category,
-            desc, price,
+            desc,
+            price,
             images,
             location,
             user: req.loggedInUser
